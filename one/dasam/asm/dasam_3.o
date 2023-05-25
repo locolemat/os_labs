@@ -1,0 +1,91 @@
+	.file	"dasam.c"
+	.text
+	.p2align 4
+	.globl	assembly
+	.type	assembly, @function
+assembly:
+.LFB0:
+	.cfi_startproc
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	assembly, .-assembly
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	xorl	%eax, %eax
+	cmpb	$104, (%rax)
+	je	.L4
+	.p2align 4,,10
+	.p2align 3
+.L5:
+	addq	$1, %rax
+	cmpb	$104, (%rax)
+	jne	.L5
+.L4:
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	cmpb	$101, (%rax)
+	je	.L6
+	.p2align 4,,10
+	.p2align 3
+.L7:
+	addq	$1, %rax
+	cmpb	$101, (%rax)
+	jne	.L7
+.L6:
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	xorl	%edx, %edx
+	jmp	.L22
+	.p2align 4,,10
+	.p2align 3
+.L9:
+	addq	$1, %rax
+.L22:
+	cmpb	$108, (%rax)
+	jne	.L9
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	addl	$1, %edx
+	cmpl	$2, %edx
+	jne	.L22
+	cmpb	$111, (%rax)
+	je	.L24
+	.p2align 4,,10
+	.p2align 3
+.L11:
+	addq	$1, %rax
+	cmpb	$111, (%rax)
+	jne	.L11
+.L24:
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	xorl	%eax, %eax
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	"GCC: (GNU) 12.2.1 20230201"
+	.section	.note.GNU-stack,"",@progbits

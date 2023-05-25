@@ -1,0 +1,109 @@
+	.file	"dasam.c"
+	.text
+	.globl	assembly
+	.type	assembly, @function
+assembly:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, %eax
+	movb	%al, -4(%rbp)
+	leaq	-4(%rbp), %rsi
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	nop
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	assembly, .-assembly
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$16, %rsp
+.L3:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	$104, %al
+	je	.L4
+	addq	$1, -8(%rbp)
+	jmp	.L3
+.L4:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movsbl	%al, %eax
+	movl	%eax, %edi
+	call	assembly
+.L5:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	$101, %al
+	je	.L6
+	addq	$1, -8(%rbp)
+	jmp	.L5
+.L6:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movsbl	%al, %eax
+	movl	%eax, %edi
+	call	assembly
+.L7:
+	movl	-16(%rbp), %eax
+	subl	-12(%rbp), %eax
+	cmpl	$1, %eax
+	jg	.L13
+	nop
+.L9:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	$108, %al
+	je	.L10
+	addq	$1, -8(%rbp)
+	jmp	.L9
+.L10:
+	addl	$1, -16(%rbp)
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movsbl	%al, %eax
+	movl	%eax, %edi
+	call	assembly
+	jmp	.L7
+.L13:
+	nop
+.L8:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	cmpb	$111, %al
+	je	.L11
+	addq	$1, -8(%rbp)
+	jmp	.L8
+.L11:
+	movq	-8(%rbp), %rax
+	movzbl	(%rax), %eax
+	movsbl	%al, %eax
+	movl	%eax, %edi
+	call	assembly
+	movl	$0, %eax
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	"GCC: (GNU) 12.2.1 20230201"
+	.section	.note.GNU-stack,"",@progbits

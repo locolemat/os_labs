@@ -1,0 +1,56 @@
+	.file	"input_reverse.c"
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB0:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	subq	$1024, %rsp
+	movq	%fs:40, %rax
+	movq	%rax, -8(%rbp)
+	xorl	%eax, %eax
+	movq	$0, -1008(%rbp)
+	movq	$0, -1000(%rbp)
+	leaq	-992(%rbp), %rdx
+	movl	$0, %eax
+	movl	$123, %ecx
+	movq	%rdx, %rdi
+	rep stosq
+	movl	$0, -1012(%rbp)
+	jmp	.L2
+.L3:
+	movl	-1012(%rbp), %eax
+	cltq
+	movzbl	-1013(%rbp), %edx
+	movb	%dl, -1008(%rbp,%rax)
+	addl	$1, -1012(%rbp)
+.L2:
+	call	getchar@PLT
+	movb	%al, -1013(%rbp)
+	cmpb	$-1, -1013(%rbp)
+	jne	.L3
+	leaq	-1008(%rbp), %rax
+	movq	%rax, %rdi
+	call	reverse@PLT
+	leaq	-1008(%rbp), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	movl	$0, %eax
+	movq	-8(%rbp), %rdx
+	subq	%fs:40, %rdx
+	je	.L5
+	call	__stack_chk_fail@PLT
+.L5:
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	main, .-main
+	.ident	"GCC: (GNU) 12.2.1 20230201"
+	.section	.note.GNU-stack,"",@progbits

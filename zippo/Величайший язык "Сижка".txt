@@ -1,0 +1,22 @@
+Терминалы:
+
+to - сложение
+from - вычитание
+by - умножение
+less - <
+greater - >
+be - =
+let - :=
+should - if
+then - :
+
+
+Пример:
+
+let x be 4
+
+x to 2
+
+should x less 10 then
+x from 3
+

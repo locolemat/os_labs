@@ -1,0 +1,86 @@
+	.file	"dasam.c"
+	.text
+	.globl	assembly
+	.type	assembly, @function
+assembly:
+.LFB0:
+	.cfi_startproc
+#APP
+# 8 "./dasam/dasam.c" 1
+	mov $1, %rax; mov $1, %rdi; mov $14, %rdx; syscall;
+# 0 "" 2
+#NO_APP
+	ret
+	.cfi_endproc
+.LFE0:
+	.size	assembly, .-assembly
+	.globl	main
+	.type	main, @function
+main:
+.LFB1:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	pushq	%rbx
+	.cfi_def_cfa_offset 24
+	.cfi_offset 3, -24
+	movl	$0, %ebx
+	cmpb	$104, (%rbx)
+	je	.L3
+.L4:
+	addq	$1, %rbx
+	cmpb	$104, (%rbx)
+	jne	.L4
+.L3:
+	movl	$104, %edi
+	call	assembly
+	cmpb	$101, (%rbx)
+	je	.L5
+.L6:
+	addq	$1, %rbx
+	cmpb	$101, (%rbx)
+	jne	.L6
+	movl	$101, %edi
+	call	assembly
+	movl	$0, %ebp
+.L12:
+	cmpb	$108, (%rbx)
+	je	.L9
+.L8:
+	addq	$1, %rbx
+	cmpb	$108, (%rbx)
+	jne	.L8
+.L9:
+	movl	$108, %edi
+	call	assembly
+	addl	$1, %ebp
+	cmpl	$1, %ebp
+	jle	.L12
+	cmpb	$111, (%rbx)
+	je	.L11
+.L13:
+	addq	$1, %rbx
+	cmpb	$111, (%rbx)
+	jne	.L13
+.L11:
+	movl	$111, %edi
+	call	assembly
+	movl	$0, %eax
+	popq	%rbx
+	.cfi_remember_state
+	.cfi_def_cfa_offset 16
+	popq	%rbp
+	.cfi_def_cfa_offset 8
+	ret
+.L5:
+	.cfi_restore_state
+	movl	$101, %edi
+	call	assembly
+	movl	$0, %ebp
+	jmp	.L12
+	.cfi_endproc
+.LFE1:
+	.size	main, .-main
+	.ident	"GCC: (GNU) 12.2.1 20230201"
+	.section	.note.GNU-stack,"",@progbits

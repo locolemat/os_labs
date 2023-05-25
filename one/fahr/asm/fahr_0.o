@@ -1,0 +1,53 @@
+	.file	"fahr.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC1:
+	.string	"%4d\t%6.1f\n"
+	.section	.text.startup,"ax",@progbits
+	.p2align 4
+	.globl	main
+	.type	main, @function
+main:
+.LFB11:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	leaq	.LC1(%rip), %rbp
+	pushq	%rbx
+	.cfi_def_cfa_offset 24
+	.cfi_offset 3, -24
+	movl	$300, %ebx
+	subq	$8, %rsp
+	.cfi_def_cfa_offset 32
+	.p2align 4,,10
+	.p2align 3
+.L2:
+	leal	-32(%rbx), %eax
+	pxor	%xmm0, %xmm0
+	movl	%ebx, %esi
+	movq	%rbp, %rdi
+	cvtsi2sdl	%eax, %xmm0
+	mulsd	.LC0(%rip), %xmm0
+	movl	$1, %eax
+	call	printf@PLT
+	subl	$1, %ebx
+	jnb	.L2
+	addq	$8, %rsp
+	.cfi_def_cfa_offset 24
+	xorl	%eax, %eax
+	popq	%rbx
+	.cfi_def_cfa_offset 16
+	popq	%rbp
+	.cfi_def_cfa_offset 8
+	ret
+	.cfi_endproc
+.LFE11:
+	.size	main, .-main
+	.section	.rodata.cst8,"aM",@progbits,8
+	.align 8
+.LC0:
+	.long	1908874354
+	.long	1071761180
+	.ident	"GCC: (GNU) 12.2.1 20230201"
+	.section	.note.GNU-stack,"",@progbits
